@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module Jammit
 
   # Uses the YUI Compressor or Closure Compiler to compress JavaScript.
