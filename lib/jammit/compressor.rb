@@ -207,9 +207,13 @@ module Jammit
     # Similar to the AssetTagHelper's method of the same name, this will
     # determine the correct asset id for a file.
     def rails_asset_id(path)
-      asset_id = ENV["RAILS_ASSET_ID"]
-      return asset_id if asset_id
-      File.exists?(path) ? File.mtime(path).to_i.to_s : ''
+      # asset_id = ENV["RAILS_ASSET_ID"]
+      # return asset_id if asset_id
+      # File.exists?(path) ? File.mtime(path).to_i.to_s : ''
+
+      # use MD5 hash instead of mtime to keep css files consistent across boxes
+
+      File.exists?(path) ? Digest::MD5.hexdigest(File.read(path)) : ''
     end
 
     # An asset is valid for embedding if it exists, is less than 32K, and is
